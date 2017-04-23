@@ -9,35 +9,31 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.EditText;
+import android.view.View.OnClickListener;
 
 public class MainActivity extends AppCompatActivity {
 
     EditText et_msg;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        Button btn = (Button)findViewById(R.id.button);//定義按鈕
+        btn.setOnClickListener(rec_notification);
+        et_msg = (EditText)findViewById(R.id.editText);//定義輸入
 
-       FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
-    private View.OnClickListener rec_notification = new View.OnClickListener() {
+    private OnClickListener rec_notification = new OnClickListener() {//給按鈕工作
         @Override
         public void onClick(View v) {
             Intent intent = new Intent();
             intent.setAction("benson.NOTIFICATION");
             String msg = et_msg.getEditableText().toString();
-            intent.putExtra("KEY_MSG", msg);
+            intent.putExtra("Name", msg);
             sendBroadcast(intent);
         }
     };
